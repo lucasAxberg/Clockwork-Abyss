@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c7vuevfj3v1gx"]
+[gd_scene load_steps=5 format=3 uid="uid://c7vuevfj3v1gx"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerMovement.gd" id="1_c0jgr"]
+[ext_resource type="Script" path="res://Scripts/CameraMovement.gd" id="2_1vyij"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_7yi30"]
 
@@ -16,3 +17,9 @@ mesh = SubResource("CapsuleMesh_7yi30")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_qcog7")
+
+[node name="HeadPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.591622, 0)
+
+[node name="Camera3D" type="Camera3D" parent="HeadPoint"]
+script = ExtResource("2_1vyij")
