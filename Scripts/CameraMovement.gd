@@ -1,7 +1,8 @@
 extends Camera3D
 
 # Set rotation speed and initialize rotation values
-var mouse_sensitivity := 0.001
+@export var mouse_sensitivity: float = 0.001
+@export var max_rotation_angle: int = 180
 var twist_input := 0.0
 var pitch_input := 0.0
 
@@ -24,7 +25,10 @@ func _physics_process(delta: float) -> void:
 	pitch_pivot.rotate_x(pitch_input)
 	
 	# Clamp rotation to prevent upside-down camera
-	pitch_pivot.rotation.x = clamp(pitch_pivot.rotation.x, -0.5, 0.5)
+	pitch_pivot.rotation.x = clamp(pitch_pivot.rotation.x, 
+	-deg_to_rad(max_rotation_angle/2), 
+	deg_to_rad(max_rotation_angle/2)
+	)
 	
 	# Reset rotation values so the camera stops spinning
 	twist_input = 0.0
