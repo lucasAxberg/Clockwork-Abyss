@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://c1i4j3fsxokxa"]
+
+[ext_resource type="Texture2D" uid="uid://bgo453hjk7h3b" path="res://cube/marble_albedo.jpg" id="1_70to6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_40ca1"]
+size = Vector3(100, 0.272339, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m7r4g"]
+albedo_texture = ExtResource("1_70to6")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_yf2rq"]
+size = Vector2(100, 100)
+
+[sub_resource type="Environment" id="Environment_sm5pl"]
+background_mode = 1
+background_color = Color(0.28487, 0.229026, 0.277946, 0.870588)
+background_energy_multiplier = 1.15
+fog_mode = 1
+fog_light_color = Color(0.260302, 0.200583, 0.341544, 1)
+fog_density = 0.948
+fog_height = 431.16
+fog_depth_curve = 0.90125
+volumetric_fog_albedo = Color(0.288779, 0.289196, 0.46348, 1)
+volumetric_fog_emission = Color(0.151276, 0.151276, 0.151276, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6qafx"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ro8pk"]
+size = Vector3(11.74, 2.01, 8.55)
+
+[node name="World3D" type="Node3D"]
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0677208, 0)
+shape = SubResource("BoxShape3D_40ca1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+material_override = SubResource("StandardMaterial3D_m7r4g")
+mesh = SubResource("PlaneMesh_yf2rq")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sm5pl")
+
+[node name="Player" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23582, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+mesh = SubResource("CapsuleMesh_6qafx")
+
+[node name="Buildings" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.66708, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Buildings"]
+transform = Transform3D(0.759498, 0, 0.650509, 0, 1, 0, -0.650509, 0, 0.759498, -4.8788, -3.85045, 22.05)
+mesh = SubResource("BoxMesh_ro8pk")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Buildings"]
+transform = Transform3D(0.759498, 0, 0.650509, 0, 1, 0, -0.650509, 0, 0.759498, 0.174421, -3.85045, 22.05)
+mesh = SubResource("BoxMesh_ro8pk")
