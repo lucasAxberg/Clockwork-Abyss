@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 	var target = get_closest_turret(target_parent_node)
 	
 	# Targeting player if they are too close, otherwise default target
-	if global_position.distance_to(player.global_position) >= player_distance_threshold:
+	if get_path_length(player.global_position) >= player_distance_threshold:
 		navigation_agent_3d.set_target_position(target.global_transform.origin)
 	else:
 		navigation_agent_3d.set_target_position(player.global_transform.origin)
@@ -39,6 +39,19 @@ func get_closest_turret(turret_parent: Node3D) -> Node3D:
 	var closest_turret: Node3D = list_of_turrets[0]
 	
 	for turret in list_of_turrets:
-		if global_position.distance_to(turret.global_position) < global_position.distance_to(closest_turret.global_position):
+		if get_path_length(turret.global_position) < get_path_length(closest_turret.global_position):
 			closest_turret = turret
 	return closest_turret
+
+
+func get_path_length(location: Vector3) -> float:
+	# Save previous target
+	var previous_target_location = navigation_agent_3d.target_position
+	
+	# Set path and get distance to new loaction
+	navigation_agent_3d.set_target_position(location)
+	var length = navigation_agent_3d.distance_to_target()
+	
+	# Reset target location and return value
+	navigation_agent_3d.set_target_position(previous_target_location)
+	return length
