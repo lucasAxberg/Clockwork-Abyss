@@ -22,5 +22,5 @@ func _process(delta: float) -> void:
 	# Navigation
 	navigation_agent_3d.set_target_position(target.global_transform.origin)
 	var next_position = navigation_agent_3d.get_next_path_position()
-	velocity = (next_position - global_transform.origin)
+	velocity = (next_position - global_transform.origin).normalized() * SPEED
 	move_and_slide()
