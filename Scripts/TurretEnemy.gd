@@ -24,7 +24,7 @@ func _process(delta: float) -> void:
 	
 	# Targeting player if they are too close, otherwise default target
 	if global_position.distance_to(player.global_position) >= player_distance_threshold:
-		navigation_agent_3d.set_target_position(target_parent_node.global_transform.origin)
+		navigation_agent_3d.set_target_position(target.global_transform.origin)
 	else:
 		navigation_agent_3d.set_target_position(player.global_transform.origin)
 	
