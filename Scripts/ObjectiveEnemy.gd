@@ -20,7 +20,7 @@ func _process(delta: float) -> void:
 	velocity = Vector3.ZERO
 	
 	# Targeting player if they are too close, otherwise default target
-	if global_position.distance_to(player.global_position) >= player_distance_threshold:
+	if get_path_length(player.global_position) >= player_distance_threshold:
 		navigation_agent_3d.set_target_position(target.global_transform.origin)
 	else:
 		navigation_agent_3d.set_target_position(player.global_transform.origin)
@@ -29,3 +29,16 @@ func _process(delta: float) -> void:
 	var next_position = navigation_agent_3d.get_next_path_position()
 	velocity = (next_position - global_transform.origin).normalized() * SPEED
 	move_and_slide()
+
+
+func get_path_length(location: Vector3) -> float:
+	# Save previous target
+	var previous_target_location = navigation_agent_3d.target_position
+	
+	# Set path and get distance to new loaction
+	navigation_agent_3d.set_target_position(location)
+	var length = navigation_agent_3d.distance_to_target()
+	
+	# Reset target location and return value
+	navigation_agent_3d.set_target_position(previous_target_location)
+	return length
