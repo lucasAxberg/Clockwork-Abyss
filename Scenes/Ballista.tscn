@@ -53,3 +53,8 @@ skeleton = NodePath("../MeshInstance3D")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="VisionArea"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, -54)
 shape = SubResource("ConvexPolygonShape3D_54emf")
+
+[node name="VisionRaycast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+target_position = Vector3(0, 0, -100)
+debug_shape_custom_color = Color(1, 0, 0, 1)
