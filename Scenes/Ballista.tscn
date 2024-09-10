@@ -58,3 +58,6 @@ shape = SubResource("ConvexPolygonShape3D_54emf")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 target_position = Vector3(0, 0, -100)
 debug_shape_custom_color = Color(1, 0, 0, 1)
+
+[node name="ShootPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1.5)
