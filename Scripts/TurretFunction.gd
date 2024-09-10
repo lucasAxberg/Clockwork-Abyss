@@ -33,6 +33,18 @@ func get_closest_enemy(vision_area: Area3D, vision_raycast: RayCast3D) -> Node3D
 	
 	return closest_node
 
+func move_ammo(ammo_list: Array, direction_list: Array, speed: float) -> void:
+	for a in range(ammo_list.size()):
+		ammo_list[a].global_position.x += direction_list[a].x * speed
+		ammo_list[a].global_position.z += direction_list[a].z * speed
+		var colliders = ammo_list[a].get_node("Area3D").get_overlapping_bodies()
+		if colliders.size() > 0:
+			print("colliding")
+			for collider in colliders:
+				if !collider.is_in_group("test"):
+					ammo_list[a].queue_free()
+					ammo_list.remove_at(a)
+					direction_list.remove_at(a)
 
 
 #var overlaps = vision_area.get_overlapping_bodies()
