@@ -10,6 +10,7 @@ var _piercing: int
 var exists: bool
 
 var colliders_id = []
+var previous_pos: Vector3
 
 func _init(pos: Vector3, dir: Vector3, speed: int, piercing: int, scene):
 	# Assign inputed values to variables
@@ -23,11 +24,14 @@ func _init(pos: Vector3, dir: Vector3, speed: int, piercing: int, scene):
 	_bullet.global_position = _position
 	
 func move_ammo(delta) -> void:
+	# Save previous position
+	previous_pos = _bullet.global_position
 	# Move bullet according to speed and direction
 	_bullet.global_position.x += _direction.x * _speed * delta
 	_bullet.global_position.z += _direction.z * _speed * delta
 	# Get all colliders the bullet touches
-	var colliders = _bullet.get_node("Area3D").get_overlapping_bodies()
+	#var colliders = _bullet.get_node("Area3D").get_overlapping_bodies()
+	var colliders = get_passed_colliders() + _bullet.get_node("Area3D").get_overlapping_bodies()
 	if colliders.size() > 0:
 		for collider in colliders:
 			if !collider.is_in_group("test"):
@@ -41,3 +45,30 @@ func move_ammo(delta) -> void:
 					else:
 						colliders_id.append(collider.get_instance_id())
 						_piercing -= 1
+
+func get_passed_colliders():
+	# Get all children of _bullet instance and filter to get the RayCast3D
+	var pass_raycast = _bullet.get_children().filter(func(item): return item.name == "PassCheck")[0]
+	
+	# Calculate the relative position to the previous position
+	var raycast_pos = pass_raycast.global_position
+	var relative_pos = previous_pos - raycast_pos
+	
+	# Update raycast target position
+	pass_raycast.set_target_position(relative_pos)
+	pass_raycast.force_raycast_update()
+	
+	# Get a list of all collisions
+	var collision_array = []
+	while pass_raycast.is_colliding():
+		var closest_collider = pass_raycast.get_collider()
+		collision_array.append(closest_collider)
+		pass_raycast.add_exception(closest_collider)
+		pass_raycast.force_raycast_update()
+	
+	# Remove exceptions
+	pass_raycast.clear_exceptions()
+	
+	collision_array.reverse()
+	
+	return collision_array

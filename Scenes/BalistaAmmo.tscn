@@ -16,3 +16,5 @@ skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("ConvexPolygonShape3D_tvn1y")
+
+[node name="PassCheck" type="RayCast3D" parent="."]
