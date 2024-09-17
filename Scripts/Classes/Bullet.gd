@@ -5,15 +5,19 @@ var _position: Vector3
 var _direction: Vector3
 var _speed: int
 var _bullet = null
+var _piercing: int
 # Variable to show if "_bullet" exists
 var exists: bool
 
-func _init(pos: Vector3, dir: Vector3, speed: int, scene):
+var colliders_id = []
+
+func _init(pos: Vector3, dir: Vector3, speed: int, piercing: int, scene):
 	# Assign inputed values to variables
 	_bullet = scene.instantiate()
 	_direction = dir
 	_position = pos
 	_speed = speed
+	_piercing = piercing
 	exists = true
 	# Move bullet in <turret> scene to ShootingPoint's position
 	_bullet.global_position = _position
@@ -27,6 +31,13 @@ func move_ammo(delta) -> void:
 	if colliders.size() > 0:
 		for collider in colliders:
 			if !collider.is_in_group("test"):
-				# Remove bullet scene if bullet collides with a certain group
-				_bullet.queue_free()
-				exists = false
+				# Check if bullet hasnt allready collided with the collider
+				if !colliders_id.has(collider.get_instance_id()):
+					if _piercing <= 0:
+						# Remove bullet scene if bullet collides with a certain group and piercing = 0
+						_bullet.queue_free()
+						exists = false
+						print("godbye")
+					else:
+						colliders_id.append(collider.get_instance_id())
+						_piercing -= 1

@@ -9,7 +9,8 @@ var ammo = preload("res://Scenes/BalistaAmmo.tscn")
 @onready var attack_timer: Timer = $AttackTimer
 
 var bullet_list = []
-var speed = 10
+var speed = 100
+var piercing = 1
 
 func _process(delta: float) -> void:
 	var closest_enemy: Node3D = turret_functions.get_closest_enemy(vision_area, vision_raycast)
@@ -20,9 +21,10 @@ func _process(delta: float) -> void:
 			var direction = shoot_point.global_position.direction_to(closest_enemy.global_position)
 			var pos = shoot_point.position
 			# Add new instance of bullet class to bullet_list
-			bullet_list.append(Bullet.new(pos, direction, speed, ammo))
+			bullet_list.append(Bullet.new(pos, direction, speed, piercing, ammo))
 			# Add bullet scene to the ballista scene and restart timer
 			add_child(bullet_list[-1]._bullet)
+			print("Shooting")
 			attack_timer.start()
 			
 	# Move all bullet scenes that exist
