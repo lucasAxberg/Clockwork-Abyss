@@ -1,6 +1,6 @@
 extends Node3D
 
-var turret_functions = Turret.new()
+var turret_functions = Turret_Functions.new()
 var ammo = preload("res://Scenes/BalistaAmmo.tscn")
 
 @onready var vision_area: Area3D = $VisionArea
