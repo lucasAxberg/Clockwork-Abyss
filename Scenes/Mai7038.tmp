@@ -3,14 +3,17 @@
 [ext_resource type="Script" path="res://Scripts/GameManager.gd" id="1_edwbl"]
 [ext_resource type="PackedScene" uid="uid://ccp167py1wqxa" path="res://Scenes/ui.tscn" id="2_s5bpb"]
 [ext_resource type="PackedScene" uid="uid://bf0cg4lgrcpfe" path="res://Scenes/worldLayout.tscn" id="3_f0x2c"]
-[ext_resource type="PackedScene" uid="uid://bhcfb2wfhkwlm" path="res://Scenes/player_text.tscn" id="4_l8d5s"]
+[ext_resource type="PackedScene" uid="uid://c7vuevfj3v1gx" path="res://Scenes/Player.tscn" id="4_66ugx"]
 
 [node name="gamemanager" type="Node"]
 script = ExtResource("1_edwbl")
 
 [node name="ui" parent="." instance=ExtResource("2_s5bpb")]
 
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
 [node name="World3D" parent="." instance=ExtResource("3_f0x2c")]
 
-[node name="Player" parent="." instance=ExtResource("4_l8d5s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.12698, 0)
+[node name="Player" parent="." instance=ExtResource("4_66ugx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9557, 2.55821, 0)

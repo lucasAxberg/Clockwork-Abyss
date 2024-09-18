@@ -1,0 +1,241 @@
+[gd_scene load_steps=8 format=3 uid="uid://ccp167py1wqxa"]
+
+[ext_resource type="Script" path="res://Scripts/ui.gd" id="1_noxnx"]
+[ext_resource type="Texture2D" uid="uid://bmkv1xrqskniw" path="res://icon.svg" id="2_8ybda"]
+[ext_resource type="Script" path="res://Scenes/time.gd" id="3_np7gr"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_su1ky"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_8uqje"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_x2qug"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_yd8bb"]
+
+[node name="ui" type="CanvasLayer"]
+script = ExtResource("1_noxnx")
+
+[node name="end_of_game_screen" type="Node2D" parent="."]
+visible = false
+
+[node name="end_game_scoreDisplay" type="Node2D" parent="end_of_game_screen"]
+position = Vector2(576, 326)
+scale = Vector2(1.49227, 1.60664)
+
+[node name="Sprite2D" type="Sprite2D" parent="end_of_game_screen/end_game_scoreDisplay"]
+modulate = Color(0, 0.85098, 0, 0.905882)
+position = Vector2(0.499998, -46.5)
+scale = Vector2(1.17969, 0.320313)
+texture = ExtResource("2_8ybda")
+
+[node name="Label_score" type="Label" parent="end_of_game_screen/end_game_scoreDisplay"]
+offset_left = -61.0
+offset_top = -63.0
+offset_right = 8.0
+offset_bottom = -35.0
+scale = Vector2(0.7, 0.7)
+text = "SCORE:"
+
+[node name="points" type="Label" parent="end_of_game_screen/end_game_scoreDisplay"]
+offset_left = -19.0
+offset_top = -63.0
+offset_right = 84.0
+offset_bottom = -35.0
+scale = Vector2(0.7, 0.7)
+text = "0"
+
+[node name="Lable_time" type="Label" parent="end_of_game_screen/end_game_scoreDisplay"]
+offset_left = -62.0
+offset_top = -48.0
+offset_right = 7.0
+offset_bottom = -20.0
+scale = Vector2(0.7, 0.7)
+text = "TIME:"
+
+[node name="time" type="Label" parent="end_of_game_screen/end_game_scoreDisplay"]
+offset_left = -29.0
+offset_top = -48.0
+offset_right = 74.0
+offset_bottom = -20.0
+scale = Vector2(0.7, 0.7)
+text = "0"
+
+[node name="restart_button" type="Button" parent="end_of_game_screen"]
+offset_left = 464.0
+offset_top = 298.0
+offset_right = 617.0
+offset_bottom = 321.0
+scale = Vector2(1.45595, 1.49366)
+
+[node name="Label" type="Label" parent="end_of_game_screen/restart_button"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = -4.0
+offset_right = 149.0
+offset_bottom = 23.0
+text = "Restart"
+horizontal_alignment = 1
+
+[node name="quitButton" type="Button" parent="end_of_game_screen"]
+offset_left = 464.0
+offset_top = 344.303
+offset_right = 617.0
+offset_bottom = 367.303
+scale = Vector2(1.45595, 1.49366)
+
+[node name="Label" type="Label" parent="end_of_game_screen/quitButton"]
+layout_mode = 0
+offset_right = 156.0
+offset_bottom = 29.0
+text = "Quit"
+horizontal_alignment = 1
+
+[node name="durring_game_screen" type="Node2D" parent="."]
+position = Vector2(66, 53)
+
+[node name="Sprite2D" type="Sprite2D" parent="durring_game_screen"]
+modulate = Color(0.187176, 0.187176, 0.187176, 0.34902)
+position = Vector2(20, -30)
+scale = Vector2(-176.084, 38.7895)
+texture = SubResource("CanvasTexture_su1ky")
+
+[node name="time" type="Label" parent="durring_game_screen"]
+visible = false
+offset_left = 12.0
+offset_top = -44.0
+offset_right = 112.0
+offset_bottom = -18.0
+scale = Vector2(1.24, 1.4)
+text = "0"
+script = ExtResource("3_np7gr")
+
+[node name="bars" type="Sprite2D" parent="durring_game_screen"]
+modulate = Color(0.152941, 0.152941, 0.152941, 0.811765)
+position = Vector2(825, -28.4375)
+scale = Vector2(526, 58.875)
+texture = SubResource("CanvasTexture_8uqje")
+
+[node name="HP_bar" type="Sprite2D" parent="durring_game_screen"]
+modulate = Color(0.760565, 3.99967e-05, 0.176149, 0.811765)
+position = Vector2(832, -38)
+scale = Vector2(513, 16)
+texture = SubResource("CanvasTexture_8uqje")
+
+[node name="stamina_bar" type="Sprite2D" parent="durring_game_screen"]
+modulate = Color(0.14619, 0.414583, 0.580878, 0.811765)
+position = Vector2(860, -15)
+scale = Vector2(456.75, 11)
+texture = SubResource("CanvasTexture_8uqje")
+
+[node name="crosshair" type="Sprite2D" parent="durring_game_screen"]
+modulate = Color(0.0627451, 0.0627451, 0.0627451, 0.254902)
+position = Vector2(510, 267)
+scale = Vector2(0.125, 0.140625)
+texture = ExtResource("2_8ybda")
+
+[node name="Lable" type="Label" parent="durring_game_screen"]
+offset_left = -47.0
+offset_top = -44.0
+offset_right = 53.0
+offset_bottom = -18.0
+scale = Vector2(1.24, 1.4)
+text = "Time:"
+
+[node name="before_game_screen" type="Node2D" parent="."]
+visible = false
+position = Vector2(578, 155)
+scale = Vector2(4.33139, 5.2186)
+
+[node name="PlayButton" type="Button" parent="before_game_screen"]
+offset_left = -26.3195
+offset_top = 16.0963
+offset_right = 126.681
+offset_bottom = 45.0963
+scale = Vector2(0.335087, 0.271835)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="before_game_screen/PlayButton"]
+layout_mode = 0
+offset_right = 152.0
+offset_bottom = 28.0
+text = "Play"
+horizontal_alignment = 1
+
+[node name="SettingsButton" type="Button" parent="before_game_screen"]
+offset_left = -26.3195
+offset_top = 26.2523
+offset_right = 126.681
+offset_bottom = 55.2523
+scale = Vector2(0.335087, 0.271835)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="before_game_screen/SettingsButton"]
+layout_mode = 0
+offset_right = 152.0
+offset_bottom = 25.0
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="quitButton" type="Button" parent="before_game_screen"]
+offset_left = -26.3195
+offset_top = 36.2166
+offset_right = 126.681
+offset_bottom = 59.2166
+scale = Vector2(0.335087, 0.271835)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="before_game_screen/quitButton"]
+layout_mode = 0
+offset_right = 154.0
+offset_bottom = 23.0
+text = "Quit"
+horizontal_alignment = 1
+
+[node name="settings_screen" type="Node2D" parent="."]
+visible = false
+position = Vector2(581, 255)
+scale = Vector2(4.02525, 3.47047)
+
+[node name="settings_background_screen" type="Sprite2D" parent="settings_screen"]
+modulate = Color(0, 0, 0, 0.486275)
+position = Vector2(-1.19391, 8.93306)
+scale = Vector2(100.613, 85.8661)
+texture = SubResource("CanvasTexture_x2qug")
+
+[node name="ExitMenuButton" type="Button" parent="settings_screen"]
+offset_left = -21.0
+offset_top = 33.0
+offset_right = 20.0
+offset_bottom = 41.0
+scale = Vector2(0.906281, 1.02403)
+pivot_offset = Vector2(18.8808, 3.45774)
+
+[node name="Sprite2D" type="Sprite2D" parent="settings_screen/ExitMenuButton"]
+modulate = Color(0.868677, 0.10574, 2.88785e-07, 1)
+position = Vector2(19.75, 3.75)
+scale = Vector2(40.5, 8.5)
+texture = SubResource("CanvasTexture_yd8bb")
+
+[node name="Label" type="Label" parent="settings_screen/ExitMenuButton"]
+layout_mode = 0
+offset_left = 10.022
+offset_top = -1.30404
+offset_right = 47.022
+offset_bottom = 21.696
+scale = Vector2(0.562934, 0.37594)
+text = "Exit"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="end_of_game_screen/restart_button" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="end_of_game_screen/quitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="before_game_screen/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="before_game_screen/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="before_game_screen/quitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="settings_screen/ExitMenuButton" to="." method="_on_exit_menu_button_pressed"]
