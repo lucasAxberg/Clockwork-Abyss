@@ -2,8 +2,8 @@ extends Node3D
 
 var obj_enm = preload("res://Scenes/ObjectiveEnemy.tscn")
 @onready var spawn_timer: Timer = $SpawnTimer
-@onready var player: RigidBody3D = $"../Player"
-@onready var node_3d: Node3D = $"../Node3D"
+@onready var player: RigidBody3D = $"../../Player"
+@onready var node_3d: Node3D = $"../../Node3D"
 
 
 var classes = []
@@ -18,3 +18,6 @@ func _process(delta: float) -> void:
 		
 	for enemy in classes:
 		enemy.move()
+	
+	classes = classes.filter(func(item): return item.health > 0)
+	
