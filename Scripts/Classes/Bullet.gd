@@ -45,15 +45,19 @@ func move_ammo(delta) -> void:
 				# Check if bullet hasnt allready collided with the collider
 				if !colliders_id.has(collider.get_instance_id()):
 					
+					
 					# Remove bullet scene if bullet collides with a certain group and piercing = 0
 					if _piercing <= 0:
+						deal_damage(collider.get_instance_id())
 						_bullet.queue_free()
 						exists = false
 						print("godbye")
+						break
 					
 					# Else add collider to list and decrease piercing
-					else:
+					elif _piercing > 0:
 						colliders_id.append(collider.get_instance_id())
+						deal_damage(collider.get_instance_id())
 						_piercing -= 1
 			
 			# Removes the bullet instantly if it collided with a wall
@@ -88,3 +92,10 @@ func get_passed_colliders():
 	collision_array.reverse()
 	
 	return collision_array
+
+func deal_damage(instance_id):
+	var enemies = _bullet.get_tree().get_nodes_in_group("enemy")
+	for enemy in enemies:
+		if enemy.get_instance_id() == instance_id:
+			print(enemy, "Found")
+			enemy.health = 0

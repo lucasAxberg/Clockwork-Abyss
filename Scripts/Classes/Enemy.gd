@@ -1,21 +1,22 @@
 class_name Enemy
 
-var health: float
 var max_speed: float
 
 var target: Node3D
 var player: Node3D
 var nav_agent
 
-
 var scene_instance = null
 
+var sc = load("res://Scripts/Variables/EnemyHealth.gd")
+
 func _init(h: float, s: float, t: Node3D, p: Node3D, scene):
-	health = h
 	max_speed = s
 	target = t
 	player = p
 	scene_instance = scene.instantiate()
+	scene_instance.set_script(sc)
+	scene_instance.health = h
 	
 	# Get navigaion agent and set target
 	nav_agent = scene_instance.get_children().filter(func(item): return item.name == "NavigationAgent3D")[0]
@@ -23,7 +24,7 @@ func _init(h: float, s: float, t: Node3D, p: Node3D, scene):
 
 func move():
 	# If dead, remove enemy visually and stop funtion
-	if health <= 0:
+	if scene_instance.health <= 0:
 		scene_instance.queue_free()
 		return
 	

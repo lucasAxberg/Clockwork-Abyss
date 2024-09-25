@@ -19,5 +19,5 @@ func _process(delta: float) -> void:
 	for enemy in classes:
 		enemy.move()
 	
-	classes = classes.filter(func(item): return item.health > 0)
+	classes = classes.filter(func(item): return item.scene_instance.health > 0)
 	
