@@ -51,10 +51,9 @@ func move_ammo(delta) -> void:
 						deal_damage(collider.get_instance_id())
 						_bullet.queue_free()
 						exists = false
-						print("godbye")
 						break
 					
-					# Else add collider to list and decrease piercing
+					# Else add collider to list, decrease piercing and damage enemy
 					elif _piercing > 0:
 						colliders_id.append(collider.get_instance_id())
 						deal_damage(collider.get_instance_id())
@@ -64,7 +63,6 @@ func move_ammo(delta) -> void:
 			else:
 				_bullet.queue_free()
 				exists = false
-				print("godbye")
 
 func get_passed_colliders():
 	# Get all children of _bullet instance and filter to get the RayCast3D
@@ -89,13 +87,15 @@ func get_passed_colliders():
 	# Remove exceptions
 	pass_raycast.clear_exceptions()
 	
+	# Return the array with the "first" collision in front
 	collision_array.reverse()
-	
 	return collision_array
 
 func deal_damage(instance_id):
+	# Get all nodes in "enemy" group
 	var enemies = _bullet.get_tree().get_nodes_in_group("enemy")
+	
+	# Loop through and remove health from the enemy which had been collided 
 	for enemy in enemies:
 		if enemy.get_instance_id() == instance_id:
-			print(enemy, "Found")
-			enemy.health = 0
+			enemy.health = 0	# Should remove instead of setting to 0 
