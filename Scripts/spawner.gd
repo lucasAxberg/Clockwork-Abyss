@@ -6,7 +6,7 @@ var scr = preload("res://Scripts/Variables/Enemy.gd")
 
 # Variables for nodes
 @onready var spawn_timer: Timer = $SpawnTimer
-@onready var player: RigidBody3D = $"../../Player"
+@onready var player: CharacterBody3D = $"../../Player"
 @onready var node_3d: Node3D = $"../../Node3D"
 
 var Enemies = []
@@ -14,7 +14,7 @@ var Enemies = []
 func _process(delta: float) -> void:
 	if spawn_timer.get_time_left() < 0.1:
 		# Restart timer
-		spawn_timer.start(1)
+		spawn_timer.start()
 		
 		# Create and save reference to a new enemy and set it variables 
 		Enemies.append(objective_enemy.instantiate())
