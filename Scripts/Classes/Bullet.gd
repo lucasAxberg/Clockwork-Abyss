@@ -98,4 +98,4 @@ func deal_damage(instance_id):
 	# Loop through and remove health from the enemy which had been collided 
 	for enemy in enemies:
 		if enemy.get_instance_id() == instance_id:
-			enemy.health = 0	# Should remove instead of setting to 0 
+			enemy.health -= 120	# Should remove instead of setting to 0 
