@@ -20,3 +20,4 @@ skeleton = NodePath("../..")
 shape = SubResource("ConvexPolygonShape3D_tvn1y")
 
 [node name="PassCheck" type="RayCast3D" parent="."]
+collision_mask = 3
