@@ -46,15 +46,12 @@ func move_ammo(delta) -> void:
 						colliders_id.append(collider.get_instance_id())
 						deal_damage(collider.get_instance_id())
 						_piercing -= 1
-						print("piercing: ", _piercing)
 					
 					else:
-						print("no piercing: ", _piercing)
 						break
 					
 			# Removes the bullet instantly if it collided with a wall
 			else:
-				print("WALL")
 				_piercing = -1
 				break
 
