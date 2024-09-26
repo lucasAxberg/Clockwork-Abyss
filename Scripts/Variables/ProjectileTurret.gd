@@ -2,24 +2,43 @@ extends Node3D
 
 # Instance variables
 var turret_functions = Turret_Functions.new()
-var ammo = preload("res://Scenes/BalistaAmmo.tscn")
-var ammo_script = preload("res://Scripts/Variables/Bullet.gd")
+var projectile_script = preload("res://Scripts/Variables/Bullet.gd")
 
 # Node references
-@onready var vision_area: Area3D = $VisionArea
-@onready var vision_raycast: RayCast3D = $VisionRaycast
-@onready var shoot_point: Node3D = $ShootPoint
-@onready var attack_timer: Timer = $AttackTimer
+var vision_area: Area3D
+var vision_raycast: RayCast3D
+var shoot_point: Node3D
+var attack_timer: Timer
 
-# Bullet variables
-var speed = 100
-var piercing = 1
-var damage = 75.0
+# Turret variables
+var condition: float
+var ammo_count: int
+var attack_time: float
+
+# Projectile variables
+var speed: float
+var piercing: int
+var damage:float
 
 # List of references to all bullets
 var bullet_list = []
+var projectile = null
 
-func _process(delta: float) -> void:
+func set_vars(ammo: int, spd: float, prc: int, dmg: float, prj_scn, atk_time:float, cnd: float = 100.0):
+	condition = cnd
+	ammo_count = ammo
+	speed = spd
+	piercing = prc
+	damage = dmg
+	projectile = prj_scn
+	attack_time = atk_time
+	
+	vision_area = get_node("VisionArea")
+	vision_raycast = get_node("VisionRaycast")
+	shoot_point = get_node("ShootPoint")
+	attack_timer = get_node("AttackTimer")
+
+func attack(delta: float) -> void:
 	var closest_enemy: Node3D = turret_functions.get_closest_enemy(vision_area, vision_raycast)
 	if closest_enemy:
 		
@@ -31,11 +50,11 @@ func _process(delta: float) -> void:
 			var pos = shoot_point.position
 		
 			# Add new instance of bullet class to bullet_list
-			bullet_list.append(ammo.instantiate())
-			bullet_list[-1].set_script(ammo_script)
+			bullet_list.append(projectile.instantiate())
+			bullet_list[-1].set_script(projectile_script)
 			bullet_list[-1].set_vars(pos, direction, speed, piercing, damage)
 			add_child(bullet_list[-1])
-			attack_timer.start()
+			attack_timer.start(attack_time)
 			
 	# Move all bullet scenes that exist
 	for bullet in bullet_list:

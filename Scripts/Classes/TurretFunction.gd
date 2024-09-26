@@ -1,4 +1,4 @@
-class_name Turret
+class_name Turret_Functions
 
 
 func get_closest_enemy(vision_area: Area3D, vision_raycast: RayCast3D) -> Node3D:

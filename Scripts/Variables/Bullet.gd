@@ -1,41 +1,37 @@
-class_name Bullet
+extends Node3D
 
 # Define movement related variables
 var _position: Vector3
 var _direction: Vector3
-var _speed: int
-var _bullet = null
+var _speed: float
 var _piercing: int
-
-# Variable to show if "_bullet" exists
-var exists: bool
+var _damage: float
 
 # Variables for collission detection
 var colliders_id = []
 var previous_pos: Vector3
 
-func _init(pos: Vector3, dir: Vector3, speed: int, piercing: int, scene):
+func set_vars(pos: Vector3, dir: Vector3, speed: int, piercing: int, damage: float ):
 	# Assign inputed values to variables
-	_bullet = scene.instantiate()
 	_direction = dir
 	_position = pos
 	_speed = speed
 	_piercing = piercing
-	exists = true
+	_damage = damage
 	
 	# Move bullet in <turret> scene to ShootingPoint's position
-	_bullet.global_position = _position
+	global_position = _position
 	
 func move_ammo(delta) -> void:
 	# Save previous position
-	previous_pos = _bullet.global_position
+	previous_pos = global_position
 	
 	# Move bullet according to speed and direction
-	_bullet.global_position.x += _direction.x * _speed * delta
-	_bullet.global_position.z += _direction.z * _speed * delta
+	global_position.x += _direction.x * _speed * delta
+	global_position.z += _direction.z * _speed * delta
 	
 	# Get all colliders the bullet touches
-	var colliders = get_passed_colliders() + _bullet.get_node("Area3D").get_overlapping_bodies()
+	var colliders = get_passed_colliders() + get_node("Area3D").get_overlapping_bodies()
 	if colliders.size() > 0:
 		for collider in colliders:
 			
@@ -45,28 +41,23 @@ func move_ammo(delta) -> void:
 				# Check if bullet hasnt allready collided with the collider
 				if !colliders_id.has(collider.get_instance_id()):
 					
-					
-					# Remove bullet scene if bullet collides with a certain group and piercing = 0
-					if _piercing <= 0:
-						deal_damage(collider.get_instance_id())
-						_bullet.queue_free()
-						exists = false
-						break
-					
 					# Else add collider to list, decrease piercing and damage enemy
-					elif _piercing > 0:
+					if _piercing >= 0:
 						colliders_id.append(collider.get_instance_id())
 						deal_damage(collider.get_instance_id())
 						_piercing -= 1
-			
+					
+					else:
+						break
+					
 			# Removes the bullet instantly if it collided with a wall
 			else:
-				_bullet.queue_free()
-				exists = false
+				_piercing = -1
+				break
 
 func get_passed_colliders():
 	# Get all children of _bullet instance and filter to get the RayCast3D
-	var pass_raycast = _bullet.get_children().filter(func(item): return item.name == "PassCheck")[0]
+	var pass_raycast = get_children().filter(func(item): return item.name == "PassCheck")[0]
 	
 	# Calculate the relative position to the previous position
 	var raycast_pos = pass_raycast.global_position
@@ -93,9 +84,9 @@ func get_passed_colliders():
 
 func deal_damage(instance_id):
 	# Get all nodes in "enemy" group
-	var enemies = _bullet.get_tree().get_nodes_in_group("enemy")
+	var enemies = get_tree().get_nodes_in_group("enemy")
 	
 	# Loop through and remove health from the enemy which had been collided 
 	for enemy in enemies:
 		if enemy.get_instance_id() == instance_id:
-			enemy.health -= 120	# Should remove instead of setting to 0 
+			enemy.health -= _damage 
