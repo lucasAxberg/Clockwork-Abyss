@@ -15,17 +15,17 @@ run/main_scene="res://Scenes/Main_Scene.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
-[global_group]
-
-enemy="A group for all enemies"
-wall="group for all non passable walls"
-
 [display]
 
 window/size/mode=3
 window/size/window_width_override=2304
 window/size/window_height_override=1296
 window/stretch/mode="canvas_items"
+
+[global_group]
+
+enemy="A group for all enemies"
+wall="group for all non passable walls"
 
 [input]
 
