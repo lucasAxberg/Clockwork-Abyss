@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1401oqas1u8i"]
+
+[ext_resource type="Texture2D" uid="uid://3y13vtrccgbv" path="res://OIP (1).png" id="1_v2akr"]
+[ext_resource type="PackedScene" uid="uid://ccp167py1wqxa" path="res://Scenes/ui.tscn" id="2_svvjp"]
+[ext_resource type="Texture2D" uid="uid://b1audjfo1jr8q" path="res://35c1b59489384e525605851b12558928.png" id="3_7s0l5"]
+
+[sub_resource type="SystemFont" id="SystemFont_3jy1l"]
+
+[node name="start_game_menu" type="Node2D"]
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(576.5, 324.5)
+scale = Vector2(2.46624, 2.43985)
+texture = ExtResource("1_v2akr")
+
+[node name="ui" parent="." instance=ExtResource("2_svvjp")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(580, 323)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+visible = false
+modulate = Color(0.7104, 0.8144, 0.96, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 369.0
+offset_top = 73.0
+offset_right = 520.0
+offset_bottom = 97.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+theme_override_fonts/normal_font = SubResource("SystemFont_3jy1l")
+text = "Clockwork-Abbyss"
+
+[node name="title2" type="Sprite2D" parent="."]
+self_modulate = Color(0.122349, 0.120222, 0.298408, 1)
+position = Vector2(570.5, 204.5)
+scale = Vector2(1.35351, 1.63393)
+texture = ExtResource("3_7s0l5")
+
+[node name="title" type="Sprite2D" parent="."]
+self_modulate = Color(0.67372, 0.696406, 0.923558, 1)
+position = Vector2(575.5, 193.5)
+scale = Vector2(1.35351, 1.63393)
+texture = ExtResource("3_7s0l5")
