@@ -13,6 +13,17 @@ var seconds = 0
 @onready var escape_screen = $escape_screen
 @onready var lable = $durring_game_screen/count_up_time
 
+@onready var option_button: OptionButton = $settings_screen/MarginContainer/VBoxContainer/OptionButton
+@onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer
+
+
+const WINDOW_MODE_ARRAY : Array[String] = [
+	"Full-Screen",
+	"Window Mode",
+	"Borderless window",
+	"Borderless Full-Screen"
+]
+
 var time = 0
 
 func _process(delta):
@@ -30,9 +41,32 @@ func _process(delta):
 	
 
 func _ready():
-	pass
+	audio_player.play()
+	add_window_mode_itmes()
+	option_button.item_selected.connect(on_window_mode_selected)
 	#$"..".connect("abyss_is_playing", self, "game_started")
 	#$durring_game_screen/points.text = "%d" % 0
+	
+func  add_window_mode_itmes() -> void:
+	for i in WINDOW_MODE_ARRAY:
+		option_button.add_item(i)
+	
+func on_window_mode_selected(index: int) -> void:
+	match index:
+		0: 
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+		1:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+		2:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
+		3:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
+			
+			
 	
 func update_points(points: int): #points func + ui
 	game_points = points
@@ -49,10 +83,10 @@ func _on_restart_button_pressed() -> void: #ui
 
 
 func _on_play_button_pressed() -> void: #ui
-	get_tree().change_scene_to_file("res://Scenes/Main_Scene.tscn")
-	#emit_signal("abyss_is_playing")
-	#game_started()
-	#game_started.emit()
+	var loadingScreen = load("res://Scenes/loading_screen.tscn")
+	get_tree().change_scene_to_packed(loadingScreen)
+	#get_tree().change_scene_to_file("res://Scenes/Main_Scene.tscn")
+	
 
 
 func _on_gamemanager_abyss_is_playing() -> void: #gameplay + gameplay ui
@@ -64,6 +98,7 @@ func _on_quit_button_pressed() -> void: #ui
 	get_tree().quit()
 
 func _on_settings_button_pressed() -> void: #ui
+	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	settings_screen.visible = true
 	#escape_screen.visible = false
 	#before_game_screen.visible = false
@@ -79,6 +114,7 @@ func _on_exit_menu_button_pressed() -> void: #ui How tf do i make it unshow the 
 		pass
 
 func _on_escape_menu() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	escape_screen.visible = true
 
 
@@ -87,3 +123,7 @@ func _on_resume_pressed() -> void:
 	settings_screen.visible = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED_HIDDEN)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+
+func _on_volume_value_changed(value: float) -> void:
+	AudioServer.set_bus_volume_db(0, value)

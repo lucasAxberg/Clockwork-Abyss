@@ -33,7 +33,10 @@ func game_started():
 	ui.game_started().connect(game_started)
 	
 func on_game_end():
-	ui.on_game_over()
+	ui.on_game
+	
+func taken_damage(): # YOU WERE HERE
+	pass
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

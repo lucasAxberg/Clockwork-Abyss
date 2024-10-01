@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3xdfp63r2swj"]
+
+[ext_resource type="Script" path="res://Hitbox.gd" id="1_n2pq7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vwrq1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_spaf3"]
+albedo_color = Color(1, 0.243137, 0.0862745, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rvqnh"]
+material = SubResource("StandardMaterial3D_spaf3")
+
+[node name="Hitboxhandler" type="Area3D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_n2pq7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_vwrq1")
+
+[node name="InvullTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_rvqnh")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

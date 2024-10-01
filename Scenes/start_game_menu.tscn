@@ -47,7 +47,3 @@ self_modulate = Color(0.67372, 0.696406, 0.923558, 1)
 position = Vector2(575.5, 193.5)
 scale = Vector2(1.35351, 1.63393)
 texture = ExtResource("3_7s0l5")
-
-[node name="Camera2D2" type="Camera2D" parent="."]
-visible = false
-scale = Vector2(-1000, -1000)

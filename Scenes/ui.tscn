@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://ccp167py1wqxa"]
+[gd_scene load_steps=12 format=3 uid="uid://ccp167py1wqxa"]
 
 [ext_resource type="Script" path="res://Scripts/ui.gd" id="1_noxnx"]
 [ext_resource type="Texture2D" uid="uid://bmkv1xrqskniw" path="res://icon.svg" id="2_8ybda"]
 [ext_resource type="Texture2D" uid="uid://b1audjfo1jr8q" path="res://35c1b59489384e525605851b12558928.png" id="3_pxg7m"]
+[ext_resource type="Script" path="res://Scenes/health_bar.gd" id="3_x800w"]
+[ext_resource type="AudioStream" uid="uid://r6t6xqmc0snx" path="res://Audio/music/ROZKOL - Self-Indulgent Jazz Interlude.mp3" id="5_kos26"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_su1ky"]
 
@@ -98,6 +100,7 @@ text = "Quit"
 horizontal_alignment = 1
 
 [node name="durring_game_screen" type="Node2D" parent="."]
+visible = false
 position = Vector2(66, 53)
 
 [node name="Sprite2D" type="Sprite2D" parent="durring_game_screen"]
@@ -126,7 +129,7 @@ scale = Vector2(456.75, 11)
 texture = SubResource("CanvasTexture_8uqje")
 
 [node name="crosshair" type="Sprite2D" parent="durring_game_screen"]
-modulate = Color(0.0627451, 0.0627451, 0.0627451, 0.254902)
+modulate = Color(0.0627451, 0.0627451, 0.0627451, 0.447059)
 position = Vector2(510, 267)
 scale = Vector2(0.0312498, 0.0312503)
 texture = ExtResource("2_8ybda")
@@ -155,9 +158,9 @@ theme_override_styles/background = SubResource("StyleBoxFlat_l0bh7")
 theme_override_styles/fill = SubResource("StyleBoxFlat_oqepi")
 value = 100.0
 fill_mode = 1
+script = ExtResource("3_x800w")
 
 [node name="before_game_screen" type="Node2D" parent="."]
-visible = false
 position = Vector2(578, 155)
 scale = Vector2(4.33139, 5.2186)
 
@@ -175,6 +178,7 @@ offset_right = 152.0
 offset_bottom = 28.0
 text = "Play"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="SettingsButton" type="Button" parent="before_game_screen"]
 offset_left = -26.3195
@@ -190,6 +194,7 @@ offset_right = 152.0
 offset_bottom = 25.0
 text = "Settings"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="quitButton" type="Button" parent="before_game_screen"]
 offset_left = -26.3195
@@ -205,6 +210,7 @@ offset_right = 154.0
 offset_bottom = 23.0
 text = "Quit"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="escape_screen" type="Node2D" parent="."]
 visible = false
@@ -306,17 +312,18 @@ scale = Vector2(4.02525, 3.47047)
 
 [node name="settings_background_screen" type="Sprite2D" parent="settings_screen"]
 modulate = Color(0, 0, 0, 1)
-position = Vector2(-1.19391, 8.93306)
-scale = Vector2(100.613, 85.8661)
+position = Vector2(2.73273, 22.1872)
+scale = Vector2(182.846, 136.005)
 texture = SubResource("CanvasTexture_x2qug")
 
 [node name="ExitMenuButton" type="Button" parent="settings_screen"]
-offset_left = -18.0
-offset_top = 33.0
-offset_right = 18.0
-offset_bottom = 41.0
+offset_left = -19.1292
+offset_top = 69.4431
+offset_right = 16.8708
+offset_bottom = 77.4431
 scale = Vector2(0.906281, 1.02403)
 pivot_offset = Vector2(18.8808, 3.45774)
+metadata/_edit_use_anchors_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="settings_screen/ExitMenuButton"]
 modulate = Color(0.868677, 0.10574, 2.88785e-07, 1)
@@ -332,6 +339,44 @@ offset_right = 47.0
 offset_bottom = 22.0
 scale = Vector2(0.562934, 0.37594)
 text = "Exit"
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="settings_screen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -81.0
+offset_top = -37.0
+offset_right = 238.0
+offset_bottom = 194.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="settings_screen/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="settings_screen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Volume"
+
+[node name="Volume" type="HSlider" parent="settings_screen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="settings_screen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Screen mode"
+
+[node name="OptionButton" type="OptionButton" parent="settings_screen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_kos26")
+volume_db = -80.0
+autoplay = true
+bus = &"Music"
 
 [connection signal="pressed" from="end_of_game_screen/restart_button" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="end_of_game_screen/quitButton" to="." method="_on_quit_button_pressed"]
@@ -343,3 +388,4 @@ text = "Exit"
 [connection signal="pressed" from="escape_screen/restart_button" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="escape_screen/quitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="settings_screen/ExitMenuButton" to="." method="_on_exit_menu_button_pressed"]
+[connection signal="value_changed" from="settings_screen/MarginContainer/VBoxContainer/Volume" to="." method="_on_volume_value_changed"]
