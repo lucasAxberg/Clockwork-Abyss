@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ccp167py1wqxa"]
+[gd_scene load_steps=12 format=3 uid="uid://rm4clvf6mq8y"]
 
 [ext_resource type="Script" path="res://Scripts/ui.gd" id="1_noxnx"]
 [ext_resource type="Texture2D" uid="uid://bmkv1xrqskniw" path="res://icon.svg" id="2_8ybda"]
@@ -291,14 +291,14 @@ offset_bottom = 24.9915
 text = "Restart"
 horizontal_alignment = 1
 
-[node name="quitButton" type="Button" parent="escape_screen"]
+[node name="back_to_start" type="Button" parent="escape_screen"]
 offset_left = 464.0
 offset_top = 380.0
 offset_right = 617.0
 offset_bottom = 403.0
 scale = Vector2(1.45595, 1.49366)
 
-[node name="Label" type="Label" parent="escape_screen/quitButton"]
+[node name="Label" type="Label" parent="escape_screen/back_to_start"]
 layout_mode = 0
 offset_right = 156.0
 offset_bottom = 29.0
@@ -315,31 +315,6 @@ modulate = Color(0, 0, 0, 1)
 position = Vector2(2.73273, 22.1872)
 scale = Vector2(182.846, 136.005)
 texture = SubResource("CanvasTexture_x2qug")
-
-[node name="ExitMenuButton" type="Button" parent="settings_screen"]
-offset_left = -19.1292
-offset_top = 69.4431
-offset_right = 16.8708
-offset_bottom = 77.4431
-scale = Vector2(0.906281, 1.02403)
-pivot_offset = Vector2(18.8808, 3.45774)
-metadata/_edit_use_anchors_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="settings_screen/ExitMenuButton"]
-modulate = Color(0.868677, 0.10574, 2.88785e-07, 1)
-position = Vector2(18.3201, 3.75)
-scale = Vector2(36.4582, 8.5)
-texture = SubResource("CanvasTexture_yd8bb")
-
-[node name="Label" type="Label" parent="settings_screen/ExitMenuButton"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = -1.0
-offset_right = 47.0
-offset_bottom = 22.0
-scale = Vector2(0.562934, 0.37594)
-text = "Exit"
-metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="settings_screen"]
 anchors_preset = 15
@@ -372,9 +347,29 @@ text = "Screen mode"
 [node name="OptionButton" type="OptionButton" parent="settings_screen/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
+[node name="ExitMenuButton" type="Button" parent="settings_screen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="settings_screen/MarginContainer/VBoxContainer/ExitMenuButton"]
+modulate = Color(0.868677, 0.10574, 2.88785e-07, 1)
+position = Vector2(18.3201, 3.75)
+scale = Vector2(36.4582, 8.5)
+texture = SubResource("CanvasTexture_yd8bb")
+
+[node name="Label" type="Label" parent="settings_screen/MarginContainer/VBoxContainer/ExitMenuButton"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = -1.0
+offset_right = 47.0
+offset_bottom = 22.0
+scale = Vector2(0.562934, 0.37594)
+text = "Exit"
+metadata/_edit_use_anchors_ = true
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_kos26")
-volume_db = -80.0
+volume_db = -40.0
 autoplay = true
 bus = &"Music"
 
@@ -386,6 +381,6 @@ bus = &"Music"
 [connection signal="pressed" from="escape_screen/ResumeButton" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="escape_screen/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="escape_screen/restart_button" to="." method="_on_restart_button_pressed"]
-[connection signal="pressed" from="escape_screen/quitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="settings_screen/ExitMenuButton" to="." method="_on_exit_menu_button_pressed"]
+[connection signal="pressed" from="escape_screen/back_to_start" to="." method="_on_back_to_start_pressed"]
 [connection signal="value_changed" from="settings_screen/MarginContainer/VBoxContainer/Volume" to="." method="_on_volume_value_changed"]
+[connection signal="pressed" from="settings_screen/MarginContainer/VBoxContainer/ExitMenuButton" to="." method="_on_exit_menu_button_pressed"]

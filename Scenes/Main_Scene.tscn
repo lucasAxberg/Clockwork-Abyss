@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://biomke5hg0ppl"]
 
 [ext_resource type="Script" path="res://Scripts/GameManager.gd" id="1_edwbl"]
-[ext_resource type="PackedScene" path="res://Scenes/ui.tscn" id="2_s5bpb"]
+[ext_resource type="PackedScene" uid="uid://rm4clvf6mq8y" path="res://Scenes/ui.tscn" id="2_s5bpb"]
 [ext_resource type="PackedScene" path="res://Scenes/worldLayout.tscn" id="3_f0x2c"]
 [ext_resource type="PackedScene" path="res://Scenes/player_text.tscn" id="4_l8d5s"]
 [ext_resource type="PackedScene" path="res://a_hitbox_test.tscn" id="5_pugff"]

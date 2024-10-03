@@ -127,3 +127,7 @@ func _on_resume_pressed() -> void:
 
 func _on_volume_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(0, value)
+
+
+func _on_back_to_start_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/start_game_menu.tscn")
