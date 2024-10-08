@@ -6,8 +6,8 @@ var scr = preload("res://Scripts/Variables/Enemy.gd")
 
 # Variables for nodes
 @onready var spawn_timer: Timer = $SpawnTimer
-@onready var player: CharacterBody3D = $"../../Player"
-@onready var node_3d: Node3D = $"../../Node3D"
+@onready var player: CharacterBody3D = $"../../../Player"
+@onready var node_3d: Node3D = $"../../../Target"
 
 var Enemies = []
 
